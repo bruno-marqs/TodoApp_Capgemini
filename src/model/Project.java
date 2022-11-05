@@ -63,7 +63,9 @@ public class Project {
     // toString //
     @Override
     public String toString() {
-        return "Project {" + "id=" + id + ", name=" + name + ", description=" + description + ", createAt=" + createAt + ", updateAt" + updateAt;
+        return "Project {" + "id= " + id + ", name= " + name + 
+        ", description= " + description + ", createAt= " + createAt + 
+        ", updateAt= " + updateAt + "}";
     }
 
     
