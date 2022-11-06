@@ -2,6 +2,7 @@ package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 public class ConnectionFactory {
     
@@ -21,10 +22,26 @@ public class ConnectionFactory {
         }
     }
     
+    // FECHAR CONEXÃO //
     public static void closeConnection(Connection connection){
         try {
             if (connection != null){
                 connection.close();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao fechar conexão com o banco de dados");
+        }
+    }
+    
+    // FECHAR CONEXÃO + STATEMENT //
+    public static void closeConnection(Connection connection, PreparedStatement statement){
+        try {
+            if (connection != null){
+                connection.close();
+            }
+
+            if (statement != null){
+                statement.close();
             }
         } catch (Exception e) {
             throw new RuntimeException("Erro ao fechar conexão com o banco de dados");
