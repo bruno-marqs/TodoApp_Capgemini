@@ -14,6 +14,7 @@ public class Task {
     private Date createAt;
     private Date updateAt;
 
+    // Construtores //
     public Task(int id, int idproject, String name, String description, String notes, boolean isCompleted, Date deadline, Date createAt, Date updateAt){
         this.id = id;
         this.idproject = idproject;
@@ -24,6 +25,10 @@ public class Task {
         this.deadline = deadline;
         this.createAt = createAt;
         this.updateAt = updateAt;
+    }
+
+    public Task(){
+        this.createAt = new Date();
     }
 
     // getters & setters // 
@@ -43,7 +48,7 @@ public class Task {
     public String getNotes() {
         return notes;
     }
-    public boolean isIsCompleted() {
+    public boolean getCompleted() {
         return isCompleted;
     }
     public Date getDeadline() {
