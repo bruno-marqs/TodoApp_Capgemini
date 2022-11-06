@@ -31,7 +31,7 @@ public class TaskController {
             statement.setInt(1, task.getIdproject());
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());
-            statement.setBoolean(4, task.getCompleted());
+            statement.setBoolean(4, task.isIsCompleted());
             statement.setString(5, task.getNotes());
             statement.setDate(6, new Date (task.getDeadline().getTime()));
             statement.setDate(7, new Date (task.getCreateAt().getTime()));
@@ -47,12 +47,44 @@ public class TaskController {
         finally{
             ConnectionFactory.closeConnection(conn, statement);
         }
-
     }
 
 
     public void update(Task task){
+        String sql = "UPDATE tasks SET (idprojects," 
+                        + "name," 
+                        + "description,"  
+                        + "completed," 
+                        + "notes," 
+                        + "deadline," 
+                        + "createAt," 
+                        + "updateAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    
+        Connection conn = null;
+        PreparedStatement statement = null;
 
+        try {
+            conn = ConnectionFactory.getConnection();
+            statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, task.getIdproject());
+            statement.setString(2, task.getName());
+            statement.setString(3, task.getDescription());
+            statement.setBoolean(4, task.isIsCompleted());
+            statement.setString(5, task.getNotes());
+            statement.setDate(6, new Date (task.getDeadline().getTime()));
+            statement.setDate(7, new Date (task.getCreateAt().getTime()));
+            statement.setDate(8, new Date (task.getUpdateAt().getTime()));
+            
+            statement.execute();
+        } 
+        catch (Exception ex) {
+            throw new RuntimeException("Erro ao atualizar a tarefa"
+                                    + ex.getMessage(), ex);
+        }
+        finally{
+            ConnectionFactory.closeConnection(conn, statement);
+        }
     }
 
 

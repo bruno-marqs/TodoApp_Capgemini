@@ -48,7 +48,7 @@ public class Task {
     public String getNotes() {
         return notes;
     }
-    public boolean getCompleted() {
+    public boolean isIsCompleted() {
         return isCompleted;
     }
     public Date getDeadline() {
