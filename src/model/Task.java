@@ -77,7 +77,7 @@ public class Task {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-    public void setCompleted(boolean isCompleted) {
+    public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
     public void setDeadline(Date deadline) {
@@ -97,6 +97,9 @@ public class Task {
         ", notes= " + notes + ", isCompleted= " + isCompleted +
         ", deadline= " + deadline + ", createAt= " + createAt +
         ", updateAt= " + updateAt + "}";
+    }
+
+    public void add(Task task) {
     }
 
 }

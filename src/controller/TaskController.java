@@ -3,7 +3,9 @@ package controller;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Task;
@@ -109,6 +111,52 @@ public class TaskController {
     }
 
     public List<Task> getAll(int idproject){
-        return null;
+        
+        String sql = "SELECT * FROM tasks WHERE idproject = ?";
+
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultset = null;
+
+        // Lista de tarefas que será devolvida quando a chamadado método
+        List<Task> tasks = new ArrayList<Task>();
+
+        try {
+            conn = ConnectionFactory.getConnection();
+            statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, idproject);
+            resultset = statement.executeQuery();
+
+            while(resultset.next()){
+
+                Task task = new Task();
+
+                task.setId(resultset.getInt("id"));
+                task.setIdproject(resultset.getInt("idproject"));
+                task.setName(resultset.getString("name"));
+                task.setDescription(resultset.getString("description"));
+                task.setNotes(resultset.getString("notes"));
+                task.setIsCompleted(resultset.getBoolean("completed"));
+                task.setDeadline(resultset.getDate("deadline"));
+                task.setCreateAt(resultset.getDate("createAt"));
+                task.setUpdateAt(resultset.getDate("updateAt"));
+
+                tasks.add(task);
+
+            }
+
+        } 
+        catch (Exception ex) {
+            throw new RuntimeException("Erro ao chamar a tarefa"
+            + ex.getMessage(), ex);
+        }
+        finally{
+            ConnectionFactory.closeConnection(conn, statement, resultset);
+        }
+
+        // Lista de tarefas que foi criada e carregada pelo banco de dados
+        return tasks;
     }
+    
 }
