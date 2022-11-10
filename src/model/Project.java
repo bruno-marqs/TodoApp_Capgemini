@@ -10,13 +10,17 @@ public class Project {
     private Date createAt;
     private Date updateAt;
 
-    // constutor //
+    // Construtores //
     public Project(int id, String name, String description, Date createAt, Date updateAt){
         this.id = id;
         this.name = name;
         this.description = description;
         this.createAt = createAt;
         this.updateAt = updateAt;
+    }
+
+    public Project(){
+        this.createAt = new Date();
     }
 
     // getters & setters //
@@ -66,6 +70,9 @@ public class Project {
         return "Project {" + "id= " + id + ", name= " + name + 
         ", description= " + description + ", createAt= " + createAt + 
         ", updateAt= " + updateAt + "}";
+    }
+
+    public void add(Project project){
     }
 
     

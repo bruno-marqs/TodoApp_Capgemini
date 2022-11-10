@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +77,8 @@ public class TaskController {
             statement.setDate(6, new Date (task.getDeadline().getTime()));
             statement.setDate(7, new Date (task.getCreateAt().getTime()));
             statement.setDate(8, new Date (task.getUpdateAt().getTime()));
-            
+            statement.setInt(9, task.getId());
+
             statement.execute();
         } 
         catch (Exception ex) {
@@ -90,7 +91,7 @@ public class TaskController {
     }
 
 
-    public void removeById(int taskId) throws SQLException{
+    public void removeById(int taskId){
         String sql = "DELETE FROM tasks WHERE id = ?";
         Connection conn = null;
         PreparedStatement statement = null;
@@ -98,6 +99,7 @@ public class TaskController {
         try {
             conn = ConnectionFactory.getConnection();
             statement = conn.prepareStatement(sql);
+            
             statement.setInt(1, taskId);
             statement.execute();
         } 
@@ -158,5 +160,5 @@ public class TaskController {
         // Lista de tarefas que foi criada e carregada pelo banco de dados
         return tasks;
     }
-    
+
 }
